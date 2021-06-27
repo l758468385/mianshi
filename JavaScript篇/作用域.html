@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>作用域</title>
+  </head>
+  <body>
+    <script>
+      /* 
+    作用域是 程序源代码中定义变量的区域 
+    作用域规确定了当前执行代码对变量的访问权限
+    js采用语法作用了，也就是静态作用域
+     */
+
+      /* 静态作用域：就是函数在定义时就决定了 */
+      var value = 1;
+      function foo() {
+        console.log(value);
+      }
+      function bar() {
+        var value = 2;
+        foo();
+      }
+      bar(); // 1
+
+      /* 思考题 */
+      // javascript权威指南 中的例子
+      // var scope = "global scope";
+      // function checkscope() {
+      //   var scope = "local scope";
+      //   function f() {
+      //     return scope;
+      //   }
+      //   return f();
+      // }
+
+      // console.log(checkscope()); // 1
+
+      var scope = "global scope";
+      function checkscope() {
+        var scope = "local scope";
+        function f() {
+          return scope;
+        }
+        return f;
+      }
+      checkscope()(); // 1
+    </script>
+  </body>
+</html>
