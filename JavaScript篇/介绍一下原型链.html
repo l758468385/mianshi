@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>介绍一下原型链</title>
+  </head>
+  <body>
+    <script>
+      // 首先 ，我们先用构造函数创建一个对象
+      function Peron() {}
+      var person = new Peron();
+      person.name = "lirenkang";
+      console.log(person.name);
+
+      /* 
+      prototype
+      每个函数都有一个 prototype属性，就是我们经常看各种例子德prototype，比如
+    
+     */
+      function Person() {}
+      // prototype是函数才有的属性
+      Person.prototype.name = "lirenakng";
+      var person1 = new Person();
+      var person2 = new Person();
+      console.log(person2.name);
+      console.log(person2.name);
+
+      console.log(person1.__proto__);
+      console.log(Person.prototype);
+      //那这个函数的prototype属性到底指向哪里呢？ 是这个函数的原型吗？？？
+      //其实，函数的prototype属性指向了一个对象，这个对象正式调用该构造函数而创建
+      //的实例的原型，也就是这个例子中的person1和person2
+
+      //__proto__ ：这是每一个JavaScript(除了null)都有的属性，他指向该对象的原型
+
+      /* 总结：
+     -用人话来说也就是 构造函数的显示原型和实例对象的隐式原型指向同一块原型对象
+     */
+
+      //constructor
+      /* 
+      -那么 constructor呢？他指向哪里？？  指向实例对象？？不可能的！
+      -一个构造函数可以生成多个实例 ，原型对象里面有同一个constructor，他指向
+      构造函数本身！
+      ----不相信？看例子↓ 
+     */
+      console.log(Person === Person.prototype.constructor);
+      console.log(
+        person1.__proto__.constructor === Person.prototype.constructor
+      );
+
+      //实例与原型
+      /* 
+        当读取实例的属性时，如果找不到，就会查找与对象关联的原型中的属性，如果还查不到
+        就去找原型的原型，一直找到顶层为止
+          =举个栗子
+      */
+      function Person() {}
+      Person.prototype.name = "jay";
+      var person = new Person();
+      person.name = "lihong";
+      console.log(person.name);
+      delete person.name;
+      console.log(person.name);
+
+      /* 例子中，我们给person添加了name属性，当我们打印person.name的
+      时候，结果为 'lihong' ，但是当我们删除了person的name属性时，读取
+      person.name，从person这个实例对象中自然时找不到咯，那么就会从person
+      的原型也就是person.__proto__ 也就是 Person.prototype中查找 
+      --但是又要考虑一个问题 ，这次幸运的找到了我们要的name属性，但是！
+        万一没有找到呢？？原型的原型又是什么？？？
+      
+      */
+      //原型的原型
+      /* 
+        原型对象，对象嘛，在特殊也是对象压！ 既然是对象，我们就用
+        最原始的方法整一个
+      
+      */
+      var obj = new Object();
+      obj.name = "整的对象名字";
+      console.log(obj.name);
+      //其实原型对象就是通过Object构造函数生成的啦！结合之前讲的
+      //所以说原型对象也是Object的实例，那么他的__proto__，也就是
+      //隐式原型指向构造函数的prototype
+
+      /* 原型链 */
+      // 那Object.prototype的原型呢？
+      console.log(Object.prototype.__proto__ === null); //true
+
+      // 题外话，也不算题外话 就是 null 他代表了什么了
+      // -null表示 “没有对象” ,即 不应该有值
+      // 所以Object.prototype.__proto__的值为null跟Object.prototype没有
+      // 原型对象其实表达了一个意思
+
+
+      /* 补充 */
+
+      //关于 constructor 这个属性 他是 原型对象的属性 
+      function Perosn(){
+
+      }
+      var person = new Person()
+      console.log(person.constructor === Person.prototype.constructor); //true
+      /* 
+        当获取person.constructor时，其实person这个实例对象中并没有constructor这个属性，
+        这时候虽然person中没有这个属性，他会用person.__proto__ 与 Person.prototype指向
+        同一原型对象上的特点，找到原型对象上的 constructor 
+      
+      */
+    </script>
+  </body>
+</html>
