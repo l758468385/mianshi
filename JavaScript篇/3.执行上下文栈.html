@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>执行上下文栈</title>
+  </head>
+  <body>
+    <script>
+      /* 
+    JS引擎执行代码并不是一行一行执行的，而是分段执行，
+    当执行一段代码的时候，会进行一个“准备动作” ----变量提升、函数提升
+        --那么！“一段一段”中的“段”时怎么去划分的呢？
+        --JS引擎遇到一段怎样的代码时才会做“准备工作”呢？？？
+    */
+
+      /* 可执行代码 */
+      // 就三种  ------ 1.全局代码 2.函数代码 3.eval代码（目前不考虑）
+
+      /* 
+      举个栗子，当执行到一个函数的时候，就会进行准备工作，这里的“准备工作”，就是收集
+      一些信息之类的，用非人类语言表达就是 “执行上下文 （execution context） --EC”
+     */
+
+      /* 执行上下文栈 */
+      // 问题又来了 ！ 我们写的函数都海了去了，那如何去管理那么多 执行上下文呢？
+      //所以js引擎就创建了一个 执行上下文栈 （Execution context stack, ECS）来管理执行上下文
+
+      /* 我们为了模拟执行上下文栈的行为，我们定义 执行上下文栈 是一个数组 */
+      ECS = [];
+
+      /* 
+          我们想象 js 开始执行代码的时候，也就是进入<script>时，我们最先遇到的肯定是全局代码，
+          所以最先向执行上下文栈 压入一个 全局执行上下文, ，反正程序没有结束他永远在底部  
+          我们用gloalContext表示他吧
+      */
+      ESC = [globalContext];
+
+      //好，现在JS遇到下面这段代码了
+      function fun3() {
+        console.log("fun3");
+      }
+      function fun2() {
+        fun3();
+      }
+      function fun1() {
+        fun2();
+      }
+      fun1();
+      /* 
+        当执行一个函数的时候，就会执行一个执行上下文，并且压入执行上下文栈，当函数执行完毕的
+        时候，就会将函数执行上下文栈中弹出来。根据这样的工作原理，我们来分析一下上面这段代码
+      */
+      /* 
+      分析下这段代码： 
+      */
+      //  =>    <script>.......<script> 进入脚本 把全局执行上下文放入 执行上下文栈当中
+      ESC = [globalContext];
+
+      //  =>   fun1() 执行fun1 为他创建 fun1 执行上下文
+      ESC = [fun1Context, globalContext];
+
+      //  =>   fun1中 居然还调用了 fun2，还要为 fun2创建执行上下文
+      ESC = [fun2Context,fun1Context,globalContext]
+
+      //  =>  我吐了，fun2中居然还调用了fun3，又要为 fun3创建执行上下文
+      ESC = [fun3Context,fun2Context,fun1Context,globalContext]
+
+      //  =>    fun3执行完毕
+      ESC.pop() //弹出栈 
+
+      //  =>    fun2执行完毕
+      ESC.pop()
+
+      //  =>    fun1执行完毕
+      ESC.pop()
+
+      //这段代码就执行完毕了，但是注意，执行上下文栈 底部永远 有个 globalContext
+    </script>
+  </body>
+</html>
