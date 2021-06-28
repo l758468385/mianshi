@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>闭包</title>
+  </head>
+  <body>
+    <script>
+      /* 
+      MDN的对闭包的定义：一个函数和对其周围状态（lexical environment，词法环境）的
+      引用捆绑在一起（或者说函数被引用包围），这样的组合就是闭包（closure）。也就是说，
+     * 闭包让你可以在一个内层函数中访问到其外层函数的作用域 *。在 JavaScript 中，每当
+     创建一个函数，闭包就会在函数创建的同时被创建出来。
+    */
+      var a = 1;
+      function foo() {
+        console.log(a);
+      }
+      foo();
+      /* 
+        foo函数可以访问变量a，但是a既不是foo函数的局部变量，也不是foo函数的参数，所以a
+        就是自由变量
+        那么函数foo和foo函数访问的自由变量a就构成了一个闭包
+       */
+      /* 
+       《javascript权威指南》中讲到：从技术的角度讲，所有的Javascript函数都是闭包
+      */
+      /* 好像说的有点大，刚才说的是技术层面的，那还有实际层面的 */
+      /* 汤姆大叔翻译闭包的文章中是这样对闭包定义的：
+       1.从理论角度：所有函数，因为他们都在创建的时候就将上层上下文的数据保存起来了。哪怕是简单
+       的全局变量也是如此，因为函数中访问全局变量就相当于在访问自由变量，这个时候使用最外层的作用域
+       2.从实践角度：以下函数才算闭包：
+        -①即使创建它的执行上下文已经销毁，它仍然存在（比如，内部函数从父函数中返回）
+        -②在代码中引用了自由变量
+     */
+
+      /* 分析一段代码 */
+      var scope = "global scope";
+      function checkscope() {
+        var scope = "local scope";
+        function f() {
+          return scope;
+        }
+        return f;
+      }
+
+      var foo = checkscope();
+      foo();
+
+      /* 简单说一下执行过程 */
+      /* 
+        1.进入全局代码，创建全局执行上下文栈，全局执行上下文压入执行上下文栈
+        2.全局执行上下文初始化
+        3.执行checkscope函数，创建checkscope函数执行上下文，checkscope执行上下文被压入执行上下文
+        栈当中
+        4.checkscope执行上下文初始化，创建变量对象，作用域链，this等
+        5.checkscope执行函数完毕，checkscope执行上下文从执行上下文栈中弹出
+        6.执行f函数，创建f函数执行上下文，f执行上下文被压入执行上下文栈顶
+        7.f执行上下文初始化，创建变量对象，作用域链，this等
+        8.f函数执行完毕，f函数执行上下文从执行上下文栈中弹出
+      
+      */
+
+      /* 这个过程我们主要要思考一个问题,就是,当f函数执行的时候,checkscope函数执行上下文已经被销毁
+        了啊(即从执行上下文中被弹出),怎么还会读取到checkscope的值呢?
+      */
+      //  当我们了解了具体的执行过程后,我们就知道f执行上下文维护了一个作用域链
+      /* 函数未执行的时候,因为他是语法作用域,自然就是编写的时候就确定了他的作用域,函数内部有一个
+      内部属性[[scope]],它保存着它父级所有的ao对象,当我们执行这个函数的时候,他会激活自己的变量
+      对象,也就是AO,他就会push自己的AO进入作用域链Scope中
+    */
+      fContext = {
+        AO: {
+          arguments: {
+            //....
+          },
+          Scope: [AO, checkscopeContext.AO, golbalContext.VO],
+        },
+      };
+
+      /* 对了,就是因为这个作用域链,f函数依然可以读取到checkContext.AO的值,说明当f函数引用了
+   checkscopeContext.AO中的值的时候,即使checkContext被销毁了,但是js依然会让checkscope.AO
+   活在内存中,f函数依然可以通过f函数的作用域链找到他,就是应为js做到了这一点,从而实现了闭包
+   */
+
+      /* 所以我们在看一遍开始说的闭包定义 */
+      /* 
+    1.即使创建它的上下文已经销毁，它仍然存在（比如，内部函数从父函数中返回）
+    2.在代码中引用了自由变量
+   */
+
+      /* 必刷题 */
+      var data = [];
+      for (var i = 0; i < 3; i++) {
+        data[i] = function () {
+          console.log(i);
+        };
+      }
+      data[0]();
+      data[1]();
+      data[2]();
+      /* 答案都是  3   */
+
+      // 分析一波
+      /* 
+        当执行到data[0]函数之前,此时全局执行上下文VO为
+      */
+      globalContext = {
+        VO: {
+          data: [],
+          i: 3,
+        },
+      };
+      /* 当执行data[0]函数的时候,data[0]函数的作用域链为 */
+      data0Context ={
+        Scope:[AO,globalContext.VO]
+      }
+      /* 
+        所以我们看出,它自己的AO对象了是没有i值,那么他就会从globalContext.VO中查找
+        自然i就是3    data[1]和data[2]也是一样的道理
+      */
+
+      /* 那我们改成闭包看一看 */
+      var data = []
+      for (let i = 0; i < 3; i++) {
+        data[i] = (function(i){
+          return function(){
+            console.log(i);
+          }
+        })(i)
+      }
+      data[0]()
+      data[1]()
+      data[2]()
+    </script>
+  </body>
+</html>
