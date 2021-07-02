@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>居中问题</title>
+  </head>
+  <body>
+    
+    1.水平居中
+      1.1行内元素水平居中
+        -这里的行内元素指文本text，img、按钮、超链接等等，只需要给父元素设置text-align:center
+   
+    .center {
+      text-align:center
+    }
+    <div class="center">水平居中</div>
+---------------------------------------------------------------------------------
+
+      1.2块级元素水平居中
+        -有给定宽度的元素水平居中：给需要居中的块级元素设置margin：0 auto
+      .center {
+        width:200px
+        margin:0 auto
+        border:1px solid red
+      }
+      <div class="center">水平居中</div>
+      -没给定宽度的元素水平居中：
+        --设置flex布局：只需要把要处理的块级元素的父元素设置display:flex;justifu-content:center
+        .center{
+          display:flex;
+          justifu-content:center;
+        }
+        <div class="center">
+          <div class="box1">1</div>
+          <div class="box2">2</div>box2  
+        </div>
+---------------------------------------------------------------------------------
+
+  2.垂直居中
+    2.1单行文本垂直居中：设置pandding-top/padding-bottom ，或者line-height 
+    2.2多行文本居中：父元素display:table,子元素display:tabel-cell和vertical-align：middle
+    2.3块级元素垂直居中：flex布局，父元素上设置display:flex 和align-items:center（主轴交叉轴没变的情况下）
+    还有一些什么position和top/bottom和margin:auto和利用position和top和transform差不多
+
+---------------------------------------------------------------------------------
+  水平垂直居中
+  方法1：绝对定位+margin:auto
+        .center {
+          width:200px;
+          height:200px;
+          background-color:red;
+          
+          position:absolute;
+          left:0;
+          right:0;
+          top:0;
+          bottom:0;
+          margin:auto;
+        }
+  方法2：绝对定位+负margin
+      .center {
+        width:200px;
+        height:200px;
+        background-color:red;
+
+        position:absolute;
+        left:50%;
+        top:50%;
+        margin-left:-100px;
+        margin-top:-100px;
+      }
+  方法3：绝对定位+transform
+        .center {
+          width:200px;
+          height:200px;
+          background-color:red;
+
+          position:absolute;
+          left:50%;
+          top:50%;
+          transform:translate(-50%,-50%)
+        }
+  方法4：flex布局
+      .container {
+        height:600px;
+
+        display:flex;
+        justify-content:cneter;
+        align-items:center
+      }    
+      .box {
+        
+      }
+  方法5：table-cell实现  
+  </body>
+</html>

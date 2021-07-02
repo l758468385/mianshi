@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数组扁平化</title>
+  </head>
+  <body>
+    <script>
+      var arr = [1, 23, 4, [2, 3, 4, [1, 2]], [1, 2], 3333];
+
+      function flatten(arr) {
+        var newArr = [];
+        for (const key in arr) {
+          if (typeof arr[key] === "object") {
+            newArr = newArr.concat(flatten(arr[key]));
+          } else {
+            newArr.push(arr[key]);
+          }
+        }
+        return newArr;
+      }
+
+      console.log(flatten(arr));
+    </script>
+  </body>
+</html>

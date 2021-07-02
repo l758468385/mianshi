@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>inline-block和block的区别</title>
+</head>
+<body>
+  块级元素：元素总在新的一行开始，盒子模型的属性均可以控制，div p ul ol ...等
+  默认元素就是块级元素，也可以通过display:block设置为块级元素
+
+  行内元素：与其他元素同一行，元素不可以设置告诉和宽度，取决于内容的高度，默认的行内元素
+  有span、a、lable、input、img，也可以通过display:inline设置为行内元素
+
+  行内块级元素：名字听上去就是两者的结合体，同时具备了两个的特性。通过display:inline-block设置
+  但是两个相邻的inline-block元素中建有空格就会产生间隙，解决办法可以粗暴的移除空格和换行，还有就
+  是设置字体大小为0，因空格也是字符，所以可以给父级设置font-size:0、letter-spacing:-3px
+</body>
+</html>

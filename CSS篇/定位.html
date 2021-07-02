@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>定位</title>
+  </head>
+  <body>
+    css的定位原理及其应用 
+    position 的属性：
+      -static 默认定位 
+      -relative 相对定位
+      -absolute 绝对定位 
+      -fixed 固定定位 
+      -sticky 粘性定位 
+
+    1.static
+    ：positon的默认值，top left right bottom无效
+
+    2.relative:相对定位，相对于自身，也就是默认位置，设置top、left、right、bottom有效，
+    不会脱离文档流
+
+    3.absolute：绝对定位，如果没有设置top、left、right、bottom,元素保持在原先的位置不会
+    动，如果设置了，因为它已经脱离的文档流，需要一个锚点，这个锚点就是 最近非static的祖先元素,
+    可以是relative、absolute、fixed，一直找到<body>
+      所以我们最常采用relative+absolute的组合来布局，口诀（子绝父相）--面向口诀编程
+      绝对定位还有个好处：不会触发回流
+    
+    4.fixed:固定定位，元素脱离正常文档流，元素固定在屏幕视口的固定位置，位置不会随着滚动改变
+
+    5.sticky：粘性定位，可以说它是relative和fixed的结合体，它必须结合top、bottom、left、
+    right这些属性，在还没超过我们设定的值之前是相对定位，超过之后是固定定位
+
+    </body> 
+  </body>
+</html>

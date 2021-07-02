@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>图片懒加载</title>
+  </head>
+  <body>
+    <script>
+      window.onload = function () {
+        var imgs = document.getElementsByTagName("img");
+        let clientHeight = window.innerHeight;
+        window.onscroll = debounce(function () {
+          for (let i = 0; i < imgs.length; i++) {
+            let imgHeight = imgs[i].getBoundingClientRect().top;
+            if (clientHeight - imgHeight > 0) {
+              let datasrc = imgs[i].getAttribute("data-src");
+              imgs[i].src = datasrc;
+            }
+
+            console.log(i + "的高度：" + imgHeight);
+          }
+        },500);
+      };
+      /* 防抖 */
+      function debounce(fn, wait) {
+        let timer = null;
+        return function () {
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(() => {
+            fn.call(this, arguments);
+          }, wait);
+        };
+      }
+    </script>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <img
+      data-src="https://img0.baidu.com/it/u=3619790077,1009600332&fm=26&fmt=auto&gp=0.jpg"
+      alt=""
+    />
+    <img
+      data-src="https://img0.baidu.com/it/u=2435019563,1298586040&fm=15&fmt=auto&gp=0.jpg"
+      alt=""
+    />
+    <img
+      data-src="https://img0.baidu.com/it/u=38925315,2564619234&fm=15&fmt=auto&gp=0.jpg"
+      alt=""
+    />
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+    <p>。。。</p>
+
+    <img
+      data-src="https://img0.baidu.com/it/u=3619790077,1009600332&fm=26&fmt=auto&gp=0.jpg"
+      alt=""
+    />
+    <img
+      data-src="https://img0.baidu.com/it/u=2435019563,1298586040&fm=15&fmt=auto&gp=0.jpg"
+      alt=""
+    />
+    <img
+      data-src="https://img0.baidu.com/it/u=38925315,2564619234&fm=15&fmt=auto&gp=0.jpg"
+      alt=""
+    />
+  </body>
+</html>

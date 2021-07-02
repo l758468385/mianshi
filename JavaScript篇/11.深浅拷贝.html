@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>深浅拷贝</title>
+  </head>
+  <body>
+    <script>
+      /* 浅拷贝 */
+      var arr = [
+        1,
+        2,
+        3,
+        { name: "wanglihong", age: 46 },
+        4,
+        { name: "jay", age: 44 },
+      ];
+      function shalowClone(arr) {
+        var res = Array.isArray ? [] : {};
+       for (const key in arr) {
+         if (arr.hasOwnProperty(key)) {
+            res[key] = arr[key]
+           
+         }
+       }
+        return res
+      }
+      console.log(shalowClone(arr));{
+
+      }
+
+      /* 
+        深拷贝      
+      */
+      function deepClone(arr){
+        if(typeof arr !== 'object') return alert('请传入正确数据')
+        let newArr = Array.isArray(arr) ? [] : {}
+        for(const key in arr){
+          if(arr.hasOwnProperty(key)){
+            newArr[key] =typeof arr[key] === 'object' ? deepClone(arr[key]) : arr[key]
+          }
+        }
+        return newArr
+      }
+      let deepRes = deepClone(arr)
+      deepRes[3].name = 'hhhhhh'
+      console.log(arr);
+      console.log(deepRes);
+      console.log(arr);
+    </script>
+  </body>
+</html>

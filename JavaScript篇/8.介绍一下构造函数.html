@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>介绍一下构造函数</title>
+  </head>
+  <body>
+    <script>
+      /* 构造函数与普通函数没有声明区别,只要是可以通过new调用的就是构造函数 */
+      /* 那么什么函数不能作为构造函数呢?  答曰:箭头函数 */
+      /* 我来小模仿一个new的操作吧 */
+      function Animal(type) {
+        this.type = type;
+      }
+      Animal.prototype.say = function () {
+        console.log("我很能嗷嗷叫噢");
+      };
+
+      function mockNew() {
+        let Constructor = [].shift.call(arguments);
+        let obj = {};
+        obj.__proto__ = Constructor.prototype;
+        Constructor.apply(obj, arguments);
+        return obj;
+      }
+      let animal = mockNew(Animal, "哺乳类");
+      console.log(animal);
+      animal.say();
+    </script>
+  </body>
+</html>

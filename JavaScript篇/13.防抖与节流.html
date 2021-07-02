@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>防抖与节流</title>
+    <style>
+      .container {
+        background-color: skyblue;
+        width: 1000px;
+        height: 200px;
+        border-radius: 10px;
+        margin: auto;
+        font-family: Helvetica, sans-serif;
+        line-height: 200px;
+        text-align: center;
+        color: snow;
+        font-size: 50px;
+      }
+      .btn {
+        display: block;
+        border: none;
+        width: 100px;
+        height: 100px;
+        background-color: thistle;
+        border-radius: 20px;
+        font-size: 20px;
+        line-height: 100px;
+        text-align: center;
+        color: beige;
+        margin: auto;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container"></div>
+
+    <button class="btn">
+      <span>点击提交</span>
+    </button>
+    <script>
+      let container = document.getElementsByClassName("container")[0];
+      container.addEventListener("mousemove", debounce(Add, 500));
+      let count = 0;
+      function Add() {
+        container.innerHTML = count++;
+      }
+      /* 防抖函数 */
+      function debounce(fn, wait) {
+        let timer = null;
+        return function () {
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(() => {
+            fn.call(this, arguments);
+          }, wait);
+        };
+      }
+
+      let btn = document.getElementsByClassName("btn")[0];
+      btn.addEventListener("click", throttle(commit, 1000));
+      let count1 = 0;
+      function commit() {
+        console.log(count1++);
+      }
+      /* 节流函数 */
+      function throttle(fn, wait) {
+        let flag = null;
+        return function () {
+          if (flag) {
+            return null;
+          } else {
+            flag = setTimeout(() => {
+              fn.call(this.arguments);
+              flag = false;
+            }, wait);
+          }
+        };
+      }
+    </script>
+  </body>
+</html>

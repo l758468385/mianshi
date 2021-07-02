@@ -124,7 +124,7 @@
 
       /* 那我们改成闭包看一看 */
       var data = []
-      for (let i = 0; i < 3; i++) {
+      for (var i = 0; i < 3; i++) {
         data[i] = (function(i){
           return function(){
             console.log(i);
@@ -134,6 +134,34 @@
       data[0]()
       data[1]()
       data[2]()
+
+      /* 当执行到data[0]函数之前,此时全局执行上下文VO为 */
+      globalContext ={
+        VA:{
+          data:[],
+          i:3
+        }
+      }
+      /* 没变 */
+
+      /* 但是,当我们执行data[0]函数的时候,data[0]函数的作用域链发生了变化 */
+      data0Context = {
+        Scope:[AO,匿名函数Context.AO,globalContext.VO]
+      }
+      
+      // 匿名函数执行上下文的AO为:
+      匿名函数Context = {
+        AO:{
+          arguments:{
+            0:0,
+            length:1
+          },
+          i:0
+        }
+      }
+      /* 所以data[0]的AO并没有i值,所以会沿着作用域链从匿名函数Context.AO中查找,这时候i为0,找到了
+        就不会往globalContext.VO中找了,即使即使GO中也有值为3的i,那也不管用所以是打印0
+      */
     </script>
   </body>
 </html>

@@ -1,15 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BFC</title>
-</head>
-<body>
-  <!-- BFC 定义 -->
-  <script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BFC</title>
+    <style>
+      .box {
+        margin: 100px;
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        float: left;
+      }
+      .container {
+        background-color: seagreen;
+        display: inline-block;
+      }
 
-  </script>
-</body>
+      .box1 {
+        margin: 10px;
+        width: 100px;
+        height: 100px;
+        background-color: skyblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <!-- BFC -->
+      <!-- 
+  上来就问问题：
+    -为什么有BFC
+    -BFC是什么
+    -如何触发BFC
+    -BFC可以解决什么问题
+ -->
+
+      <!-- 
+    W3C官网解释：BFC它解决了元素如何对其内容进行定位，以及其他元素的关系和相互作用，当涉及到
+    可视化布局时，Block Formatting Context提供了一个环境，HTML在这个环境中按照一定的规则
+    进行布局
+
+    简单来说就是：BFC是一个完全独立的空间，它让空间内部的子元素不会影响到外面的布局，那么怎么
+    使用BFC呢，BFC可以看作是一个CSS元素属性
+   -->
+      <!-- 怎样触发BFC -->
+      - overflow:hidden - display:inline-block - positio:absolute -
+      position:fixed - display:table-cell - display:flex - html
+      <!-- BFC的规则 -->
+      BFC 就是一个块级元素，块级元素会在垂直方向一个接一个的排列
+      BFC就是页面中的一个隔离的独立容器，容器里标签不会影响外部标签
+      垂直方向的距离由margin决定，属于一个BFC的两个相邻的标签外边距会发生重叠
+      计算BFC的高度时，浮动元素也会参与进来
+    </div>
+
+    <!-- BFC解决了什么问题 -->
+
+    <!-- 1.使用float脱离文档流，高度塌陷 -->
+    <div class="container">
+      <div class="box"></div>
+      <div class="box"></div>
+    </div>
+    <!-- 2.margin边距重叠 -->
+    <div class="container1">
+      <div class="box1"></div>
+      <p><div class="box1"></div></p>
+    </div>
+
+    <!-- 
+      👆可以看到 我们为两个盒子都设置了margin外边距10px,可是结果显示两个盒子之间只有显示
+      10px的距离，这就导致了margin塌陷问题，这时margin边距的结果为最大值，而不是合值，为
+      了解决这个问题可以使用BFC规则（为元素包裹一个盒子形成完全独立的空间，做到里面元素不受
+      外面元素的布局影响），或者简单粗暴一个设置margin一个设置padding
+    -->
+    <script></script>
+  </body>
 </html>
