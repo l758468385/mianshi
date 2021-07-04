@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>常用数组和字符串方法</title>
+  </head>
+  <body>
+    <script>
+      /* 数组方法 */
+      // join 用指定分隔符把数组转成字符串
+      var a1 = [1, 2, 3, 4, 5, 6];
+      console.log(a1.join());
+      console.log(a1.join("-"));
+      console.log(a1.join(""));
+      /* 不传入参数就默认用逗号连接 */
+
+      // push方法
+      var a2 = [1, 2, 3, 4, 5, 6];
+      console.log(a2.push(22)); //7 也就是返回新数组长度
+      console.log(a2); //[1, 2, 3, 4, 5, 6, 22]
+      /* 在数组末尾增加元素 */
+
+      // pop方法
+      console.log(a2.pop()); //22 删掉尾部的元素，返回被删掉的元素
+      console.log(a2); //[1, 2, 3, 4, 5, 6]
+
+      //shift 删除头部的元素 返回删掉的元素
+
+      //unshift //往头部添加元素，返回新元素长度
+
+      /* 总结：添加删除的方法都会改变原数组，增加的方法返回新长度，删除的方法返回被删除的元素 */
+
+      // concat  连接数组，不改变原数组
+
+      // reverse 颠倒原数组 会改变原数组
+
+      // slice 截取一段元素  开始到结束 前闭后开，返回被截取的新数组
+      var a3 = [1, 2, 3, 4, 5, 6];
+      console.log(a3.slice(2, 4)); // [3, 4]
+
+      // sort 排序
+      var a4 = [2, 3, 1, 5, 1, 7, 3, 5];
+      console.log(
+        a3.sort(function (a, b) {
+          return a - b;
+        })
+      );
+      // a-b 升序 b-a降序
+
+      //splice(开始位置，删除的个数，添加的元素....)
+
+      /* forEach filter map some every find findIndex  reduce  */
+
+        let s1  = 'ababaacdcdcdd'
+        let newS1 = Array.from(new Set(s1)).map((item) => [...s1].filter((i) => i===item).join(''))
+        console.log(newS1);
+    </script>
+  </body>
+</html>
