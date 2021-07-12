@@ -22,7 +22,20 @@
         return newArr;
       }
 
+      function flatten1(arr){
+        let newArr = []
+        for(const key in arr){
+          if(typeof arr[key] === 'object'){
+            newArr = newArr.concat(flatten1(arr[key]))
+          }else{
+            newArr.push(arr[key])
+          }
+        }
+        return newArr
+      }
+
       console.log(flatten(arr));
+      console.log(flatten1(arr));
     </script>
   </body>
 </html>
